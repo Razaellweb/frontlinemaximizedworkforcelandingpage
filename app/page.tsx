@@ -1,333 +1,285 @@
-"use client"
+// app/page.tsx
+'use client';
+import React from "react";
+import Head from "next/head";
+import Link from "next/link";
+import {
+  Button,
+} from "../components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "../components/ui/avatar";
+import { CheckIcon } from "../components/icons";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion";
 
-import React from "react"
-import Link from "next/link"
-import { Button } from "../components/ui/button"
-import { Card } from "../components/ui/card"
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion"
-import { Avatar, AvatarImage, AvatarFallback } from "../components/ui/avatar"
-import { cn } from "../lib/utils"
-import { ArrowRight, Camera, CheckCircle, CalendarDays, ShieldCheck, Users2, Star } from "lucide-react"
+const HERO_IMAGE = "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=900&q=80";
 
-// ---- SECTION: NAVBAR ----
-function Navbar() {
+const features = [
+  {
+    title: "Verified Portfolios",
+    description: "Browse authentic portfolios from real photographers — see their style before you book.",
+    icon: <CheckIcon className="w-6 h-6 text-blue-700" aria-hidden="true" />,
+  },
+  {
+    title: "Streamlined Booking",
+    description: "Book, chat, and manage jobs in one place. No more endless back-and-forth emails.",
+    icon: <CheckIcon className="w-6 h-6 text-blue-700" aria-hidden="true" />,
+  },
+  {
+    title: "Secure Payments",
+    description: "All payments are held securely until the job is complete and you’re satisfied.",
+    icon: <CheckIcon className="w-6 h-6 text-blue-700" aria-hidden="true" />,
+  },
+  {
+    title: "Transparent Reviews",
+    description: "See uncensored feedback and ratings from real clients for every photographer.",
+    icon: <CheckIcon className="w-6 h-6 text-blue-700" aria-hidden="true" />,
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "Booking through Front-line maximized workforce felt seamless. The portfolio previews set my expectations perfectly, and the results blew me away!",
+    name: "Lena Thompson",
+    role: "Small Business Owner",
+    image: "https://randomuser.me/api/portraits/women/68.jpg",
+  },
+  {
+    quote:
+      "I landed my dream wedding client thanks to the trust I built with my portfolio and reviews right on the platform.",
+    name: "Carlos Rivera",
+    role: "Wedding Photographer",
+    image: "https://randomuser.me/api/portraits/men/44.jpg",
+  },
+  {
+    quote:
+      "The transparent booking and secure payments gave me the confidence to hire for my big event. Highly recommended!",
+    name: "Priya Patel",
+    role: "Event Planner",
+    image: "https://randomuser.me/api/portraits/women/51.jpg",
+  },
+];
+
+const faqs = [
+  {
+    question: "How do I book a photographer?",
+    answer:
+      "Simply browse verified photographer profiles, pick your favorite, and click 'Book Now' to start messaging and arrange your project.",
+  },
+  {
+    question: "Is payment safe?",
+    answer:
+      "Payments are securely processed and not released to the photographer until your job is completed and you confirm satisfaction.",
+  },
+  {
+    question: "How are photographers verified?",
+    answer:
+      "All photographers are manually screened, and only those with complete portfolios and verified credentials are listed.",
+  },
+  {
+    question: "Can I leave a review after my project?",
+    answer:
+      "Yes! Reviews from real clients are the backbone of our platform’s trust and transparency.",
+  },
+];
+
+export default function HomePage() {
   return (
-    <nav className="w-full flex items-center justify-between py-5 px-6 md:px-12 bg-white dark:bg-zinc-950 shadow-sm fixed top-0 left-0 z-40 backdrop-blur-lg">
-      <Link href="/" aria-label="Front-line maximized workforce Home" className="flex items-center gap-2 select-none focus:outline-none">
-        <Camera className="text-blue-800 dark:text-blue-400 w-7 h-7" aria-hidden="true" />
-        <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Front-line <span className="text-blue-700 dark:text-blue-300">Maximized</span></span>
-      </Link>
-      <div className="flex gap-2">
-        <Link href="/signin">
-          <Button variant="ghost" size="sm" className="text-sm">Sign In</Button>
-        </Link>
-        <Link href="/signup">
-          <Button size="sm" className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 shadow-sm transition-transform duration-200 focus:ring-2 focus:ring-blue-400">Sign Up</Button>
-        </Link>
-      </div>
-    </nav>
-  )
-}
+    <main className="bg-slate-50 min-h-screen text-slate-900 dark:bg-slate-900 dark:text-slate-50 font-[Work_Sans,Graphik,sans-serif]">
+      <Head>
+        <title>Front-line maximized workforce | Hire Photographers. Elevate Your Story.</title>
+        <meta name="description" content="A dedicated platform to connect clients and professional photographers. Find, book, and trust the perfect photographer for you." />
+        <meta property="og:title" content="Front-line maximized workforce" />
+        <meta property="og:description" content="Book professional photographers. Review portfolios. Seamless hiring experience." />
+        <meta property="og:image" content={HERO_IMAGE} />
+      </Head>
+      {/* Navbar */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200 dark:bg-slate-900/80 dark:border-slate-800 transition-all">
+        <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 sm:px-8">
+          <Link href="/" className="flex items-center gap-2" aria-label="Front-line maximized workforce Home">
+            <span className="bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent text-2xl font-bold tracking-tight">FLMW</span>
+            <span className="sr-only">Front-line maximized workforce</span>
+          </Link>
+          <div className="flex gap-3">
+            <Link href="/signin" className="inline-flex items-center px-4 py-2 rounded-md font-medium text-blue-700 hover:bg-blue-50 dark:text-blue-300 dark:hover:bg-blue-800/30 transition-colors">Sign In</Link>
+            <Link href="/signup">
+              <Button size="lg" className="px-6 py-2 text-lg font-semibold bg-blue-700 text-white hover:bg-blue-800 shadow-lg rounded-md">
+                Find Your Photographer
+              </Button>
+            </Link>
+          </div>
+        </nav>
+      </header>
 
-// ---- SECTION: HERO ----
-function Hero() {
-  return (
-    <section className="relative flex flex-col-reverse md:flex-row items-center md:justify-between gap-10 md:gap-20 pt-24 md:pt-32 pb-16 md:pb-28 max-w-7xl mx-auto px-6 md:px-12 transition-all">
-      {/* Left content */}
-      <div className="flex-1 flex flex-col gap-6 z-10">
-        <h1 className="text-4xl md:text-6xl font-extrabold text-zinc-900 dark:text-zinc-50 leading-[1.08] tracking-tight mb-3 animate-in fade-in slide-in-from-left duration-700">
-          Hire the <span className="text-blue-700 dark:text-blue-400">Perfect Photographer</span><br className="hidden md:block"/> for Every Occasion
-        </h1>
-        <p className="text-lg md:text-xl max-w-xl font-medium text-zinc-700 dark:text-zinc-300 mb-6 animate-in fade-in slide-in-from-left delay-100 duration-700">
-          Discover, book, and manage top photography talent for any project—all in one place. Make every shot count with confidence.
-        </p>
-        <div className="flex gap-5">
+      {/* Hero Section */}
+      <section className="relative isolate h-[530px] sm:h-[550px] flex flex-col-reverse lg:flex-row items-center justify-center max-w-7xl mx-auto gap-10 px-4 sm:px-8 py-14 md:py-28 animate-in fade-in-50">
+        <div className="w-full lg:w-1/2 flex flex-col items-start justify-center gap-7 z-10">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent drop-shadow-md animate-fadeInUp">
+            Hire Photographers. Elevate Your Story.
+          </h1>
+          <p className="mt-2 text-lg lg:text-xl text-slate-700 dark:text-slate-200 max-w-xl animate-fadeInUp delay-100">
+            A dedicated platform to connect clients and professional photographers for all your photo needs. Seamless booking, transparent reviews, and inspiring portfolios—everything you need to capture the perfect shot.
+          </p>
           <Link href="/signup">
-            <Button size="lg" className="px-8 py-4 text-lg font-semibold rounded-full bg-blue-700 hover:bg-blue-800 transition-colors duration-150 shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-400 flex items-center gap-2">
+            <Button
+              size="lg"
+              className="px-7 py-3 text-lg font-bold bg-blue-700 hover:bg-blue-800 text-white transition drop-shadow-lg animate-pulse"
+              aria-label="Find Your Photographer"
+            >
               Find Your Photographer
-              <ArrowRight className="w-5 h-5" />
             </Button>
           </Link>
-          <Link href="#how-it-works" className="flex items-center text-blue-700 dark:text-blue-400 font-medium underline underline-offset-2 hover:text-blue-800">
-            How it works
+        </div>
+        <div className="relative w-full lg:w-1/2 flex items-center justify-center min-h-[320px]">
+          <div className="rounded-3xl overflow-hidden shadow-2xl ring-4 ring-blue-100 dark:ring-blue-900 transition hover:ring-blue-300 animate-fadeInUp">
+            <img
+              src={HERO_IMAGE}
+              alt="Dynamic scene of a professional photographer at work"
+              className="object-cover w-full h-80 sm:h-96 md:h-[350px] aspect-[4/3]"
+              width={580}
+              height={430}
+              loading="eager"
+              draggable="false"
+            />
+          </div>
+          {/* Photographer callout floating badge */}
+          <div className="hidden sm:flex absolute top-5 left-5 items-center gap-2 bg-slate-100/80 dark:bg-slate-900/70 px-4 py-2 rounded-full shadow-xl backdrop-blur text-slate-900 dark:text-white text-base font-medium animate-fadeInLeft">
+            <span className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse inline-block" aria-hidden="true" />
+            Verified Photographer
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof / Trust Marks */}
+      <section
+        aria-label="Trusted By"
+        className="w-full bg-blue-50/80 dark:bg-blue-900/30 py-6 sm:py-8 border-y border-blue-100 dark:border-blue-800 animate-fadeInUp"
+      >
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-8">
+          <img src="/assets/brand1.svg" alt="Brand One" className="h-7 grayscale opacity-90" />
+          <img src="/assets/brand2.svg" alt="Brand Two" className="h-7 grayscale opacity-90" />
+          <img src="/assets/brand3.svg" alt="Brand Three" className="h-7 grayscale opacity-90" />
+          <img src="/assets/brand4.svg" alt="Brand Four" className="h-7 grayscale opacity-90" />
+          <img src="/assets/brand5.svg" alt="Brand Five" className="h-7 grayscale opacity-90" />
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section
+        aria-labelledby="features-title"
+        className="w-full bg-white dark:bg-slate-900 py-16 md:py-20 animate-fadeInUp"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <h2 id="features-title" className="text-3xl sm:text-4xl font-extrabold mb-10 text-slate-900 dark:text-white text-center">Why Choose Us?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
+            {features.map((feature, i) => (
+              <div
+                key={feature.title}
+                className="flex flex-col items-start justify-start bg-blue-50/40 dark:bg-blue-900/40 border border-blue-100 dark:border-blue-800 rounded-xl shadow-md gap-4 p-7 h-full hover:scale-[1.025] transition-transform group animate-fadeInUp"
+              >
+                <span className="inline-flex items-center justify-center rounded-full p-2 mb-4 bg-blue-100 dark:bg-blue-800">
+                  {feature.icon}
+                </span>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-blue-800 transition-colors">{feature.title}</h3>
+                <p className="text-base text-slate-700 dark:text-slate-200 font-normal">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section
+        aria-labelledby="testimonials-title"
+        className="py-16 md:py-24 bg-gradient-to-br from-blue-50 via-blue-100 to-white dark:from-blue-950 dark:via-blue-900 dark:to-slate-900 animate-fadeInUp"
+      >
+        <div className="max-w-5xl mx-auto px-4 sm:px-8">
+          <h2 id="testimonials-title" className="text-3xl sm:text-4xl font-extrabold text-center text-blue-900 dark:text-blue-200 mb-12">Real Stories, Trusted Reviews</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-9">
+            {testimonials.map((t, idx) => (
+              <div
+                key={t.name}
+                className="relative flex flex-col bg-white dark:bg-blue-950 border border-blue-100 dark:border-blue-800 rounded-2xl shadow-lg px-7 py-8 gap-7 animate-fadeInUp"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <Avatar>
+                    <AvatarImage src={t.image} alt={`Photo of ${t.name}`} />
+                    <AvatarFallback>{t.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <div className="font-semibold text-blue-900 dark:text-white">{t.name}</div>
+                    <div className="text-sm text-blue-500 dark:text-blue-300">{t.role}</div>
+                  </div>
+                </div>
+                <blockquote className="text-lg text-slate-800 dark:text-slate-200 leading-normal italic border-l-4 border-blue-700 pl-4">
+                  “{t.quote}”
+                </blockquote>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section
+        aria-labelledby="faq-title"
+        className="bg-white dark:bg-slate-900 py-16 md:py-24 border-t border-slate-200 dark:border-blue-800 animate-fadeInUp"
+      >
+        <div className="max-w-3xl mx-auto px-4 sm:px-8">
+          <h2 id="faq-title" className="text-3xl sm:text-4xl font-extrabold mb-10 text-center text-slate-900 dark:text-white">Frequently Asked Questions</h2>
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, i) => (
+              <AccordionItem value={`faq-${i}`} key={faq.question}>
+                <AccordionTrigger className="text-lg font-medium text-left focus:outline-none" aria-expanded="false">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-base text-slate-700 dark:text-slate-200">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      {/* Contact / CTA Section */}
+      <section className="relative z-10 py-16 md:py-24 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400 text-white animate-fadeInUp">
+        <div className="max-w-4xl mx-auto flex flex-col items-center px-4 sm:px-8 gap-7 text-center">
+          <h2 className="text-3xl sm:text-4xl font-extrabold">Ready to Elevate Your Story?</h2>
+          <p className="text-lg sm:text-xl max-w-2xl text-blue-100 opacity-95">
+            Find, book, and trust a professional photographer – the right way. Join the Front-line maximized workforce community today.
+          </p>
+          <Link href="/signup">
+            <Button size="lg" className="px-8 py-4 text-lg font-bold bg-white text-blue-700 border-2 border-white hover:text-blue-900 hover:bg-blue-100 shadow-lg rounded-lg transition focus:outline-none focus:ring-2 focus:ring-blue-900">
+              Find Your Photographer
+            </Button>
           </Link>
         </div>
-        <div className="flex items-center gap-4 mt-6">
-          <Star className="text-yellow-500" aria-hidden="true" />
-          <span className="text-zinc-600 dark:text-zinc-200 font-medium">Trusted by 2,500+ event planners & businesses</span>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-100 dark:bg-slate-900/80 border-t border-slate-200 dark:border-blue-900/90 py-6 animate-fadeInUp">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-blue-900 dark:text-blue-200 text-base">
+          <div className="flex items-center gap-2">
+            <span className="font-bold tracking-tight text-blue-800 dark:text-blue-400">FLMW</span>
+            <span className="text-gray-400">© {new Date().getFullYear()} Front-line maximized workforce. All rights reserved.</span>
+          </div>
+          <nav className="flex gap-4">
+            <Link href="/faq" className="hover:text-blue-700 dark:hover:text-blue-300 transition-colors">FAQ</Link>
+            <Link href="/contact" className="hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Contact</Link>
+            <Link href="/privacy" className="hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Privacy</Link>
+          </nav>
         </div>
-      </div>
-      {/* Right visual: dynamic card collage with photographer portraits */}
-      <div className="flex-1 flex items-center justify-center relative min-h-[340px] md:min-h-[420px]">
-        <div className="absolute bg-gradient-to-tr from-blue-700 via-blue-400/60 to-transparent rounded-full blur-2xl w-60 h-60 md:w-96 md:h-96 -z-10 top-12 left-10 animate-in fade-in duration-700"/>
-        {/* Avatar Collage */}
-        <div className="grid grid-cols-3 gap-3 md:gap-5">
-            {["men", "women", "men", "women", "men", "women", "men", "women", "men"].map((gender, i) => (
-              <Card key={i} className={cn(
-                "p-2 rounded-2xl flex flex-col items-center bg-white/90 dark:bg-zinc-900/75 shadow-xl",
-                i === 4 && "scale-110 border-2 border-blue-700"
-              )} style={{ animationDelay: `${i * 60}ms` }}>
-                <Avatar className="w-16 h-16 md:w-20 md:h-20 mb-2 ring-2 ring-blue-400">
-                  <AvatarImage src={`https://randomuser.me/api/portraits/${gender}/${30+i}.jpg`} alt="Photographer portrait" />
-                  <AvatarFallback className="bg-blue-100 text-blue-600 font-bold">P</AvatarFallback>
-                </Avatar>
-                <span className="text-xs font-medium text-zinc-600 dark:text-zinc-300">{gender === "men" ? "John Doe" : "Jane Doe"}</span>
-              </Card>
-            ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ---- SECTION: SOCIAL PROOF ----
-function SocialProof() {
-  const brands = [
-    { name: "Weddings.com", logo: Camera },
-    { name: "Eventio", logo: CalendarDays },
-    { name: "BizConnect", logo: Users2 },
-    { name: "SecurePay", logo: ShieldCheck },
-    { name: "Planners Hub", logo: CheckCircle },
-  ]
-  return (
-    <section className="w-full py-7 bg-zinc-100 dark:bg-zinc-900 border-y border-zinc-200 dark:border-zinc-800">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <span className="uppercase text-xs tracking-widest font-bold text-zinc-500 dark:text-zinc-400 mb-2 md:mb-0">TRUSTED BY LEADING BRANDS & PLANNERS</span>
-        <div className="flex flex-wrap items-center gap-6 md:gap-10">
-          {brands.map(({ name, logo: Logo }, i) => (
-            <span
-              key={name}
-              className="flex items-center gap-2 opacity-80 hover:opacity-100 transition-opacity" aria-label={name}>
-              <Logo className="w-6 h-6 text-blue-700" aria-hidden="true" />
-              <span className="hidden md:inline text-zinc-600 dark:text-zinc-400 font-medium">{name}</span>
-            </span>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ---- SECTION: FEATURES ----
-function Features() {
-  const features = [
-    {
-      icon: <ShieldCheck className="w-7 h-7 text-blue-700" aria-hidden="true" />,
-      title: "Vetted Photographers",
-      desc:
-        "All talent is handpicked for skills, professionalism, and reliability.",
-    },
-    {
-      icon: <CheckCircle className="w-7 h-7 text-blue-700" aria-hidden="true" />,
-      title: "Seamless Booking",
-      desc:
-        "Book and schedule shoots end-to-end, with secure payments included.",
-    },
-    {
-      icon: <Star className="w-7 h-7 text-yellow-500" aria-hidden="true" />,
-      title: "Verified Reviews",
-      desc: "Browse real client testimonials and stunning portfolios.",
-    },
-    {
-      icon: <Users2 className="w-7 h-7 text-blue-700" aria-hidden="true" />,
-      title: "Smart Talent Match",
-      desc: "Advanced search & job posting, bids, and project management—all-in-one.",
-    },
-  ]
-  return (
-    <section className="py-20 max-w-7xl mx-auto px-6 md:px-12" aria-labelledby="features-heading">
-      <h2 id="features-heading" className="text-3xl md:text-5xl font-extrabold text-zinc-900 dark:text-zinc-50 mb-10 tracking-tight text-center">A Platform Built for Trust, Talent, and Results</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-        {features.map((f, i) => (
-          <Card key={i} className="flex flex-col items-center p-8 bg-white/90 dark:bg-zinc-900/70 shadow-xl rounded-3xl border border-transparent hover:border-blue-200 dark:hover:border-blue-500 transition-all duration-150">
-            <div className="mb-4 animate-in fade-in duration-700">{f.icon}</div>
-            <h3 className="text-xl font-bold mb-2 text-zinc-800 dark:text-zinc-100 text-center">{f.title}</h3>
-            <p className="text-zinc-600 dark:text-zinc-300 text-center text-base font-medium leading-relaxed">{f.desc}</p>
-          </Card>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-// ---- SECTION: HOW IT WORKS ----
-function HowItWorks() {
-  const steps = [
-    {
-      icon: <Users2 className="w-7 h-7 text-white" aria-hidden="true" />,
-      title: "Create your profile",
-      desc: "Sign up, set your preferences and project needs, and get ready to start."
-    },
-    {
-      icon: <CalendarDays className="w-7 h-7 text-white" aria-hidden="true" />,
-      title: "Post or find a job",
-      desc: "Post photography gigs or discover job opportunities tailored for you."
-    },
-    {
-      icon: <CheckCircle className="w-7 h-7 text-white" aria-hidden="true" />,
-      title: "Hire or get hired",
-      desc: "Book photographers, manage jobs, and track all your projects—effortlessly."
-    },
-    {
-      icon: <Star className="w-7 h-7 text-white" aria-hidden="true" />,
-      title: "Showcase & review",
-      desc: "Share portfolios, collect reviews, and build your photography brand."
-    }
-  ]
-  return (
-    <section id="how-it-works" className="py-20 px-6 md:px-12 bg-blue-50 dark:bg-blue-950 relative overflow-hidden">
-      <div className="max-w-5xl mx-auto flex flex-col gap-12">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 dark:text-blue-100 mb-3 tracking-tight text-center">How It Works</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-          {steps.map((s, i) => (
-            <Card key={i} className="relative overflow-visible flex flex-col items-center px-7 py-10 bg-blue-800/90 dark:bg-blue-900/90 border-0 shadow-2xl rounded-3xl group hover:scale-105 transition-transform duration-300">
-              <div className="flex items-center justify-center w-14 h-14 mb-4 rounded-full bg-blue-600 group-hover:bg-blue-700 transition-colors">
-                {s.icon}
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-1 text-center">{s.title}</h3>
-              <p className="text-blue-100/90 font-medium text-center text-base leading-relaxed">{s.desc}</p>
-            </Card>
-          ))}
-        </div>
-      </div>
-      {/* dynamic highlight gradient */}
-      <div className="absolute top-0 left-[20%] w-32 h-32 md:w-72 md:h-64 bg-gradient-to-bl from-blue-300 via-transparent to-transparent blur-3xl opacity-40 -z-10 animate-pulse" />
-    </section>
-  )
-}
-
-// ---- SECTION: TESTIMONIALS ----
-function Testimonials() {
-  const feedback = [
-    {
-      name: "Emily Chen",
-      img: "https://randomuser.me/api/portraits/women/42.jpg",
-      text: "The booking process was seamless, the photographer delivered beautiful images—couldn’t ask for more!",
-      role: "Marketing Manager, Finix Ltd."
-    },
-    {
-      name: "Ali Hassan",
-      img: "https://randomuser.me/api/portraits/men/33.jpg",
-      text: "I booked a last-minute event and quickly found a professional photographer at a great rate. Highly recommended!",
-      role: "Event Planner"
-    },
-    {
-      name: "Caroline R.",
-      img: "https://randomuser.me/api/portraits/women/66.jpg",
-      text: "Loved the portfolio browsing, and the payment felt very secure. Already planning my next booking!",
-      role: "Bride & Satisfied Customer"
-    },
-  ]
-  return (
-    <section className="py-20 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950">
-      <div className="max-w-5xl mx-auto flex flex-col gap-10">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 mb-2 text-center">What Our Clients Say</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {feedback.map((t, i) => (
-            <Card key={i} className="p-7 rounded-3xl border-0 bg-white/95 dark:bg-zinc-900/80 flex flex-col items-center gap-4 hover:shadow-2xl transition-shadow">
-              <Avatar className="w-14 h-14 ring-2 ring-blue-300">
-                <AvatarImage src={t.img} alt={`${t.name} user photo`} />
-                <AvatarFallback className="bg-blue-50 text-blue-700 font-semibold">{t.name[0]}</AvatarFallback>
-              </Avatar>
-              <p className="text-zinc-700 dark:text-zinc-200 text-center text-base italic font-medium">“{t.text}”</p>
-              <span className="text-sm text-blue-700 dark:text-blue-400 font-semibold">{t.name}</span>
-              <span className="text-xs text-zinc-500 dark:text-zinc-400">{t.role}</span>
-            </Card>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ---- SECTION: FAQ ----
-function FAQ() {
-  const qas = [
-    {
-      q: "How are photographers vetted?",
-      a: "Each photographer is reviewed for technical skill, client satisfaction, and work ethic before acceptance."
-    },
-    {
-      q: "Is payment secure?",
-      a: "All payments are managed via encrypted, trusted gateways. You’re always protected."
-    },
-    {
-      q: "Can I see portfolios and reviews?",
-      a: "Absolutely. Every photographer has a full gallery and verified client feedback."
-    },
-    {
-      q: "How fast can I book?",
-      a: "Most clients match and book within 24 hours."
-    },
-  ]
-  return (
-    <section className="py-16 px-6 md:px-12 max-w-4xl mx-auto" aria-labelledby="faq-heading">
-      <h2 id="faq-heading" className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 mb-5 text-center">FAQs</h2>
-      <Accordion type="single" collapsible>
-        {qas.map((qa, i) => (
-          <AccordionItem value={`faq-${i}`} key={i}>
-            <AccordionTrigger className="text-lg font-semibold text-zinc-700 dark:text-zinc-100">{qa.q}</AccordionTrigger>
-            <AccordionContent className="text-base text-zinc-600 dark:text-zinc-300 font-medium">{qa.a}</AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </section>
-  )
-}
-
-// ---- SECTION: CTA ----
-function FinalCTA() {
-  return (
-    <section className="py-16 px-6 md:px-12 max-w-3xl mx-auto flex flex-col items-center gap-8 text-center">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 dark:text-blue-100 mb-4 tracking-tight">Ready to capture your perfect moment?</h2>
-      <Link href="/signup">
-        <Button size="lg" className="px-8 py-4 text-lg rounded-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-900 text-white shadow-xl hover:scale-105 hover:from-blue-700 hover:to-blue-950 transition-transform duration-200 focus-visible:ring-2 focus-visible:ring-blue-400 flex items-center gap-2">
-          Find Your Photographer
-          <ArrowRight className="w-5 h-5" />
-        </Button>
-      </Link>
-      <span className="text-zinc-600 dark:text-zinc-300 font-medium text-base">It’s free to browse. Only pay when you book.</span>
-    </section>
-  )
-}
-
-// ---- SECTION: FOOTER ----
-function Footer() {
-  return (
-    <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 py-7 mt-8">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-6 md:px-0">
-        <span className="text-zinc-400 text-sm">© {new Date().getFullYear()} Front-line maximized workforce. All rights reserved.</span>
-        <nav className="flex gap-5 text-sm">
-          <Link href="/privacy" className="hover:underline text-zinc-500">Privacy Policy</Link>
-          <Link href="/terms" className="hover:underline text-zinc-500">Terms of Service</Link>
-        </nav>
-      </div>
-    </footer>
-  )
-}
-
-export default function LandingPage() {
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-zinc-50 dark:from-zinc-900 dark:via-black dark:to-zinc-950 text-zinc-900 dark:text-zinc-100 relative overflow-x-hidden transition-colors">
-      {/* SEO & Meta */}
-      <head>
-        <title>Hire the Perfect Photographer | Front-line maximized workforce</title>
-        <meta name="description" content="The leading platform dedicated to connecting clients and professional photographers—discover, book, and manage top photography talent for any project, all in one place." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="Hire the Perfect Photographer | Front-line maximized workforce" />
-        <meta property="og:description" content="The leading platform for booking top photography talent. Find, book, and manage the best photographers for any event or project." />
-        <meta property="og:type" content="website" />
-      </head>
-      <Navbar />
-      <div className="pt-20 md:pt-28" />
-      <Hero />
-      <SocialProof />
-      <Features />
-      <HowItWorks />
-      <Testimonials />
-      <FAQ />
-      <FinalCTA />
-      <Footer />
+      </footer>
     </main>
-  )
+  );
 }
+
+/**
+ * Animations (add to your global css/tailwind config):
+ * .animate-fadeInUp { @apply opacity-0 translate-y-6; animation: fadeInUp 1s cubic-bezier(.23,1.11,.32,1) forwards }
+ * .animate-fadeInLeft { @apply opacity-0 -translate-x-6; animation: fadeInLeft 1s cubic-bezier(.23,1.11,.32,1) forwards }
+ * @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+ * @keyframes fadeInLeft { to { opacity: 1; transform: translateX(0); } }
+ */
